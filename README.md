@@ -1,10 +1,9 @@
-# Project Title
+# Stat 184 R Group Project
 
-Write a 1-2 sentences that quickly and clearly convey what your repo is for.
-
+Repo for Stat 184 Group Project analyzing data and presenting effectively
 ## Overview
 
-Expand on those introductory sentences with a brief but informative description of your project's purpose and goals. This section should help visitors decide whether they should dig deeper into your repo/project.
+Understanding data and insights about heart health and how different variables can affect long term heart health using R.
 
 ### Interesting Insight (Optional)
 
