@@ -1,0 +1,123 @@
+---
+title: "Simple Exploration of Heart Disease Data"
+authors: "Miftaj Chowdhury, Abhi Adusumilli, Brady Seyler"
+data-modified: now
+format:
+  pdf:
+---
+Welcome, this code is written in a very beginner-friendly way, every step is explained in simple English.
+
+
+# Loading Packages
+
+```{r}
+#| label: loadPackages
+#| eval: true
+#| echo: true
+#| results: hide
+# Loading useful packages
+library(tidyverse)
+```
+
+
+# Step 1: Reading the dataset
+
+```{r}
+#| label: readData
+#| eval: true
+#| echo: true
+#| results: hide
+# Reading the heart data into R
+heart <- read_csv("heart.csv .txt", col_names = FALSE)
+```
+
+
+# Look at the first few lines of the dataset
+
+```{r}
+#| label: viewData
+#| eval: true
+#| echo: true
+# Viewing the first lines of the data set
+head(heart)
+```
+
+
+# Step 2: Adding names to each column
+
+```{r}
+#| label: columnNames
+#| eval: true
+#| echo: true
+#| results: hide
+# These names come from the original UCI Heart Disease dataset.
+colnames(heart) <- c(
+  "age", "sex", "cp", "trestbps", "chol", "fbs",
+  "restecg", "thalach", "exang", "oldpeak",
+  "slope", "ca", "thal", "target"
+)
+```
+
+# Step 3: Cleaning the data
+
+```{r}
+#| label: tidyData
+#| eval: true
+#| echo: true
+#| results: hide
+#Converting the data into all numeric values
+heart_clean <- heart %>%
+  mutate(across(everything(), as.numeric))
+#Removing unneeded rows
+heart_clean <- heart_clean %>%
+  filter(target <= 1)
+#Fixing the names for the factor variables
+heart_clean <- heart_clean %>%
+  mutate(
+    sex = factor(sex, labels = c("Female", "Male")),
+    target = factor(target, labels = c("No Disease", "Disease")),
+    cp = factor(cp),
+    exang = factor(exang),
+    slope = factor(slope)
+  )
+```
+
+Some columns were read in as text (characters) such as "0.0".
+We simply convert EVERYTHING into numbers.
+heart_clean <- heart %>%
+  mutate(across(everything(), as.numeric))
+We are only interested in cases that have heart disease or not, so we removed all cases that were labeled with 2, 3, or 4 in the target column. 
+"sex" is 0 or 1 → we rename these to "Female" and "Male"
+"target" is 0 or 1 (disease indicator) in YOUR dataset,
+so we rename these to "No Disease" and "Disease".
+
+# Step 4: Simple summary statistics
+
+```{r}
+#| label: summaryStats
+#| eval: true
+#| echo: true
+#| results: hide
+#These give us a quick overview of the data.
+heart_clean %>%
+  summarize(
+    average_age = mean(age),
+    average_cholesterol = mean(chol),
+    average_resting_bp = mean(trestbps)
+  )
+# Count how many males/females have disease/no disease
+heart_clean %>% count(sex, target)
+```
+
+# Looking at tidied data
+
+```{r}
+#| label: summaryStats
+#| eval: true
+#| echo: true
+# Viewing the tidied data
+glimpse(heart_clean)
+```
+
+
+
