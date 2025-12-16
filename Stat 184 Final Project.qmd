@@ -2,8 +2,8 @@
 title: "Simple Exploration of Heart Disease Data"
 authors: "Miftaj Chowdhury, Abhi Adusumilli, Brady Seyler"
 data-modified: now
-format:
-  pdf:
+format: pdf
+
 ---
 Welcome, this code is written in a very beginner-friendly way, every step is explained in simple English.
 
@@ -17,6 +17,7 @@ Welcome, this code is written in a very beginner-friendly way, every step is exp
 #| results: hide
 # Loading useful packages
 library(tidyverse)
+library(ggplot2)
 ```
 
 
@@ -119,5 +120,28 @@ heart_clean %>% count(sex, target)
 glimpse(heart_clean)
 ```
 
+# Visualizations
 
+```{r}
+#| label: Plot1 
+#| eval: true
+#| echo: true
+# Bar Graph shows information on who does and doesn't have heart disease.
+ggplot(heart_clean, 
+       aes(
+         x = target,
+         colour = sex)
+       ) +
+  geom_bar() +
+  labs(
+    title = "Heart Disease vs No Heart Disease",
+    subtitle = "Sepereated by Sex",
+    x = "Condition",
+    y = "Number of People",
+    colour = "Sex",
+    alt = "Bar Chart showing how many men and women have heart disease within the data."
+  ) +
+  theme_minimal()
+```
 
+This plot shows the number of people in the data set that had and did not have heart disease. It additionally shows the sex proportions between who did and did not have heart disease. From the graph you can see that there are significantly more men that had heart disease than women in the data, which coincides with the table that was shown earlier. 
