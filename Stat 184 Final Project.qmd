@@ -166,6 +166,65 @@ ggplot(heart_clean,
 
 Knowing the average age of the people in the data set is important when interpreting the data, which is what this histogram shows us. The range of ages spans from about 30 to 75. The distribution of the ages is bimodal, with the two peaks being around 45 and 55. This information will help bring context to future visualizations by knowing the ages of the people in the data set. 
 
+```{r}
+#| label: Plot3 
+#| eval: true
+#| echo: true
+# Box plot shows difference in Cholesterol levels for people with and without heart disease.
+ggplot(heart_clean, 
+       aes(target, chol)
+       ) + 
+  geom_boxplot() + 
+  labs(
+    title = "Cholesterol Levels by Heart Disease Status", 
+    x = "Condition", 
+    y = "Cholesterol",
+    alt = "Box plots showing the cholesterol levels for people with and without heart disease."
+    ) +
+  theme_minimal()
+```
+
+This side by side box plot shows the difference in cholesterol levels for people with and without heart disease. The average cholesterol levels for people with heart disease seems to be higher than the levels for people without. While we can't confirm exact causation with just this plot, there is certainly a possibility that higher cholesterol levels could be a factor in heart disease. 
+
+```{r}
+#| label: Plot4 
+#| eval: true
+#| echo: true
+# Box plot shows difference in resting blood pressure for people with and without heart disease.
+ggplot(heart_clean, 
+       aes(target, trestbps)
+       ) + 
+  geom_boxplot() + 
+  labs(
+    title = "Resting Blood Pressure by Heart Disease Status", 
+    x = "Condition", 
+    y = "Blood Pressure",
+    alt = "Box plots showing the resting blood pressure for people with and without heart disease."
+    ) +
+  theme_minimal()
+```
+
+This side by side box plot shows the difference in resting blood pressure for people with and without blood pressure. The average blood pressure is almost identical for people with and without blood pressure, so this can not be used as an indicator for heart disease from this data set alone.
+
+```{r}
+#| label: Plot5 
+#| eval: true
+#| echo: true
+# Box plot shows difference in max heart rate for people with and without heart disease. 
+ggplot(heart_clean, 
+       aes(target, thalach)
+       ) + 
+  geom_boxplot() + 
+  labs(
+    title = "Max Heart Rate by Heart Disease Status", 
+    x = "Condition", 
+    y = "Max Heart Rate",
+    alt = "Box plots showing the max heart rate for people with and without heart disease."
+    ) +
+  theme_minimal()
+```
+
+This side by side box plot shows the difference in max heart rate for people with and without heart disease. The average max heart rate for people with heart disease seems to be less than the average heart rate for people without heart disease. This should be considered when looking into factors for heart disease.
 ## Relationship Between Age and Maximum Heart Rate
 
 #| label: Plot3
