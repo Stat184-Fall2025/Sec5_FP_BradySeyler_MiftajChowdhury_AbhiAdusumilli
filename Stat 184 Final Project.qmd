@@ -145,3 +145,23 @@ ggplot(heart_clean,
 ```
 
 This plot shows the number of people in the data set that had and did not have heart disease. It additionally shows the sex proportions between who did and did not have heart disease. From the graph you can see that there are significantly more men that had heart disease than women in the data, which coincides with the table that was shown earlier. 
+
+```{r}
+#| label: Plot2 
+#| eval: true
+#| echo: true
+# Histogram shows information on the ages of the people in the data set.
+ggplot(heart_clean,
+       aes(age)
+       ) + 
+  geom_histogram(bins = 20, fill = "blue") + 
+  labs(
+    title = "Distribution of Patient Ages", 
+    x = "Age", 
+    y = "Count",
+    alt = "Histogtram showing the distribution of the ages of the people in the dataset."
+    ) + 
+  theme_minimal()
+```
+
+Knowing the average age of the people in the data set is important when interpreting the data, which is what this histogram shows us. The range of ages spans from about 30 to 75. The distribution of the ages is bimodal, with the two peaks being around 45 and 55. This information will help bring context to future visualizations by knowing the ages of the people in the data set. 
