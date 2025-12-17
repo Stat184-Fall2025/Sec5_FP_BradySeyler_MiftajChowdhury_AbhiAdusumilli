@@ -225,3 +225,29 @@ ggplot(heart_clean,
 ```
 
 This side by side box plot shows the difference in max heart rate for people with and without heart disease. The average max heart rate for people with heart disease seems to be less than the average heart rate for people without heart disease. This should be considered when looking into factors for heart disease.
+## Relationship Between Age and Maximum Heart Rate
+
+#| label: Plot3
+#| eval: true
+#| echo: true
+
+ggplot(
+heart_clean,
+aes(
+x = age,
+y = thalach,
+color = target
+)
+) +
+geom_point(alpha = 0.6) +
+labs(
+title = "Age vs Maximum Heart Rate",
+subtitle = "Colored by Heart Disease Status",
+x = "Age",
+y = "Maximum Heart Rate Achieved",
+color = "Condition",
+alt = "Scatter plot showing age on the x-axis and maximum heart rate on the y-axis, colored by heart disease status."
+) +
+theme_minimal()
+
+This scatter plot explores the relationship between age and maximum heart rate achieved.
