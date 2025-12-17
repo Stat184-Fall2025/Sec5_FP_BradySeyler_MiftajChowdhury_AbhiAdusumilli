@@ -1,55 +1,56 @@
 ---
 title: "Simple Exploration of Heart Disease Data"
 authors: "Miftaj Chowdhury, Abhi Adusumilli, Brady Seyler"
-data-modified: now
+date: "Wednesday, December 17, 2025"
+date-format: full
+date-modified: now
 format: pdf
-
+execute: 
+  echo: true
+  eval: true
+  warning: false
 ---
-Welcome, this code is written in a very beginner-friendly way, every step is explained in simple English.
 
+# Introduction
 
-# Loading Packages
+The goal of this project is to explore patterns related to heart disease using patient health data. We focus on understanding what factors are associated with heart disease. The data set is formatted similarly to the UCI Heart Disease data set. Each row represents a 
+patient, and variables include age, sex, cholesterol level, resting blood pressure, maximum heart rate, and a binary heart disease indicator.
+
+# Inserting the Data
 
 ```{r}
 #| label: loadPackages
 #| eval: true
-#| echo: true
+#| echo: false
 #| results: hide
 # Loading useful packages
 library(tidyverse)
 library(ggplot2)
 ```
 
-
-# Step 1: Reading the dataset
-
 ```{r}
 #| label: readData
 #| eval: true
-#| echo: true
+#| echo: false
 #| results: hide
 # Reading the heart data into R
 heart <- read_csv("heart.csv .txt", col_names = FALSE)
 ```
 
-
-# Look at the first few lines of the dataset
-
 ```{r}
 #| label: viewData
 #| eval: true
-#| echo: true
+#| echo: false
 # Viewing the first lines of the data set
 head(heart)
 ```
 
-
-# Step 2: Adding names to each column
+We first started by inserting the data into R. This is what the data frame first looked liked before we tidied it.
 
 ```{r}
 #| label: columnNames
 #| eval: true
-#| echo: true
+#| echo: false
 #| results: hide
 # These names come from the original UCI Heart Disease dataset.
 colnames(heart) <- c(
@@ -59,12 +60,10 @@ colnames(heart) <- c(
 )
 ```
 
-# Step 3: Cleaning the data
-
 ```{r}
 #| label: tidyData
 #| eval: true
-#| echo: true
+#| echo: false
 #| results: hide
 #Converting the data into all numeric values
 heart_clean <- heart %>%
@@ -83,22 +82,20 @@ heart_clean <- heart_clean %>%
   )
 ```
 
-Some columns were read in as text (characters) such as "0.0".
-We simply convert EVERYTHING into numbers.
-heart_clean <- heart %>%
-  mutate(across(everything(), as.numeric))
-We are only interested in cases that have heart disease or not, so we removed all cases that were labeled with 2, 3, or 4 in the target column. 
-"sex" is 0 or 1 → we rename these to "Female" and "Male"
-"target" is 0 or 1 (disease indicator) in YOUR dataset,
-so we rename these to "No Disease" and "Disease".
+```{r}
+#| label: viewTidy
+#| eval: true
+#| echo: false
+# Viewing the tidied data
+glimpse(heart_clean)
+```
 
-# Step 4: Simple summary statistics
+We then tidied the data, which included removing all cases where the patient wasn't labeled as either having or not having heart disease. Additionally, we changed the output of sex and target from 0 or 1 to Female or Male and No Disease or Disease respectively. This is a look at the tidied data.
 
 ```{r}
 #| label: summaryStats
 #| eval: true
-#| echo: true
-#| results: hide
+#| echo: false
 #These give us a quick overview of the data.
 heart_clean %>%
   summarize(
@@ -110,22 +107,14 @@ heart_clean %>%
 heart_clean %>% count(sex, target)
 ```
 
-# Looking at tidied data
-
-```{r}
-#| label: summaryStats
-#| eval: true
-#| echo: true
-# Viewing the tidied data
-glimpse(heart_clean)
-```
+These two tables show summary statistics of the data, including average age, cholesterol, and resting blood pressure. It also shows how many men and women in the data did and did not have heart disease. These tables will become more relevant with the visualizations below. 
 
 # Visualizations
 
 ```{r}
 #| label: Plot1 
 #| eval: true
-#| echo: true
+#| echo: false
 # Bar Graph shows information on who does and doesn't have heart disease.
 ggplot(heart_clean, 
        aes(
@@ -149,7 +138,7 @@ This plot shows the number of people in the data set that had and did not have h
 ```{r}
 #| label: Plot2 
 #| eval: true
-#| echo: true
+#| echo: false
 # Histogram shows information on the ages of the people in the data set.
 ggplot(heart_clean,
        aes(age)
@@ -169,7 +158,7 @@ Knowing the average age of the people in the data set is important when interpre
 ```{r}
 #| label: Plot3 
 #| eval: true
-#| echo: true
+#| echo: false
 # Box plot shows difference in Cholesterol levels for people with and without heart disease.
 ggplot(heart_clean, 
        aes(target, chol)
@@ -189,7 +178,7 @@ This side by side box plot shows the difference in cholesterol levels for people
 ```{r}
 #| label: Plot4 
 #| eval: true
-#| echo: true
+#| echo: false
 # Box plot shows difference in resting blood pressure for people with and without heart disease.
 ggplot(heart_clean, 
        aes(target, trestbps)
@@ -209,7 +198,7 @@ This side by side box plot shows the difference in resting blood pressure for pe
 ```{r}
 #| label: Plot5 
 #| eval: true
-#| echo: true
+#| echo: false
 # Box plot shows difference in max heart rate for people with and without heart disease. 
 ggplot(heart_clean, 
        aes(target, thalach)
@@ -229,8 +218,8 @@ This side by side box plot shows the difference in max heart rate for people wit
 
 #| label: Plot3
 #| eval: true
-#| echo: true
-
+#| echo: false
+# Scatterplot shows relationship between age and max heart rate.
 ggplot(
 heart_clean,
 aes(
@@ -250,4 +239,18 @@ alt = "Scatter plot showing age on the x-axis and maximum heart rate on the y-ax
 ) +
 theme_minimal()
 
+<<<<<<< Updated upstream
 This scatter plot explores the relationship between age and maximum heart rate achieved.
+=======
+This scatter plot explores the relationship between age and maximum heart rate achieved. As age increases, maximum heart rate is expected to decrease. So when combining this with the previous plot, an increase in age could be a factor in getting heart disease, since people with heart disease had lower max heart rates than people without heart disease.
+
+# Conclusion
+
+After creating multiple visualizations we can claim that older men with low max heart rates and high cholesterol levels are at most risk to get heart disease.
+
+# Code Appendix
+
+```{r codeAppend, ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
+```
+
+>>>>>>> Stashed changes
