@@ -191,3 +191,4 @@ alt = "Scatter plot showing age on the x-axis and maximum heart rate on the y-ax
 ) +
 theme_minimal()
 
+This scatter plot explores the relationship between age and maximum heart rate achieved.
